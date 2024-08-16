@@ -7,15 +7,15 @@
 <img src="https://github.com/hauke-cloud/.github/blob/d11756615820d138419a767fa7dd9a86abd5ad86/resources/img/logo-approved.png" align="right"
      alt="hauke.cloud logo" width="140" height="175">
 
-This repository serves as a framework for new projects within the [hauke.cloud](https://hauke.cloud).
-It offers following features:
+We try to package all our services in container and run them in Kubernetes
+clusters. The basis of these clusters are the nodes that execute the payload.
+For this we rely on Fedora CoreOS.
+We adapt the OS to our needs and then build our own ISO files and iPXE images
+to boot hardware nodes. This repository contains the necessary build logic.
 
-- Pre-commit settings to increase quality
-- Github Actions workflows for issue and actions management
-- Contributing guidelines
-- Default opentofu/terraform versions
-- Default README
-- License
+- Fedora CoreOS base
+- Customized config in [hauke.cloud - Fedora CoreOS Config](https://github.com/hauke-cloud/fedora-coreos-config)
+- Kubernetes Management Scripts in [hauke.cloud - Fedora CoreOS Kubernetes](httpshttps://github.com/hauke-cloud/fedora-coreos-kubernetes)
 
 ## Table of Contents
 
