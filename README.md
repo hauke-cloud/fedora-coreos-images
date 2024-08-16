@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="resources/img/logo.png" alt="flux-marketplace logo" width="50%" height="50%">
+  <img src="resources/img/logo.png" alt="fedora coreos images logo" width="50%" height="50%">
 </p>
 
 # Fedora CoreOS Images
