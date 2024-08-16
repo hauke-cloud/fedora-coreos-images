@@ -1,0 +1,60 @@
+name: Build Fedora CoreOS ISO
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  repository_dispatch:
+    types: [trigger-workflow]
+
+jobs:
+  build-coreos:
+    runs-on: metal-cosa
+
+    steps:
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.FEDORA_COREOS_CONFIG_DEPLOY_KEY }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Checkout Fedora CoreOS config repository
+        uses: actions/checkout@v4
+        with:
+          repository: haukelab-cloud/fedora-coreos-config
+          ref: main
+          path: src/config
+          ssh-key: ${{ secrets.FEDORA_COREOS_CONFIG_DEPLOY_KEY }}
+
+      - name: Init Fedora CoreOS assembler
+        run: |
+          cosa init --force /dev/null
+
+      - name: Build coreos packages with Fedora CoreOS assembler
+        run: |
+          cosa build
+
+      - name: Build metal
+        run: |
+          cosa build metal
+
+      - name: Build metal4k
+        run: |
+          cosa build metal4k
+
+      - name: Build live image with Fedora CoreOS assembler
+        run: |
+          cosa buildextend-live
+
+      - name: List files
+        run: ls -R builds/latest/x86_64/
+
+      - name: Upload FCOS iso
+        uses: actions/upload-artifact@v2
+        with:
+          name: fcos-artifacts
+          path: builds/latest/x86_64/*.iso
