@@ -7,9 +7,11 @@
 <img src="https://github.com/hauke-cloud/.github/blob/d11756615820d138419a767fa7dd9a86abd5ad86/resources/img/logo-approved.png" align="right"
      alt="hauke.cloud logo" width="140" height="175">
 
-We try to package all our services in container and run them in Kubernetes
+We are trying to package all our services in container and run them in Kubernetes
 clusters. The basis of these clusters are the nodes that execute the payload.
-For this we rely on Fedora CoreOS.
+
+For this we rely on [Fedora CoreOS](https://fedoraproject.org/coreos).
+
 We adapt the OS to our needs and then build our own ISO files and iPXE images
 to boot hardware nodes. This repository contains the necessary build logic.
 
