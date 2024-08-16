@@ -1,4 +1,8 @@
-# hauke.cloud Project
+<p align="center">
+  <img src="resources/img/logo.png" alt="flux-marketplace logo" width="50%" height="50%">
+</p>
+
+# Fedora CoreOS Images
 
 <img src="https://github.com/hauke-cloud/.github/blob/d11756615820d138419a767fa7dd9a86abd5ad86/resources/img/logo-approved.png" align="right"
      alt="hauke.cloud logo" width="140" height="175">
