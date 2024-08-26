@@ -8,7 +8,6 @@ Thumbs.db
 *.tmp
 *.temp
 **/*.unsealed
-deploy/
 
 # Python
 __pycache__/
