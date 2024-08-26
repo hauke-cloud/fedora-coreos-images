@@ -78,10 +78,11 @@ jobs:
 
       - name: List architecture directories
         id: architectures
-        run: |
-          ARCHITECTURES=$(ls builds/output)
-          echo "Found architectures: $ARCHITECTURES"
-          echo "architectures=$ARCHITECTURES" >> $GITHUB_OUTPUT
+        uses: mirko-felice/list-files-action@v3.0.5
+        with:
+          repo: ${{ github.repository }}
+          ref: ${{ github.ref }}
+          path: "builds/output"
 
   build:
     needs: prepare
@@ -89,7 +90,7 @@ jobs:
 
     strategy:
       matrix:
-        arch: [${{ needs.prepare.outputs.architectures }}]
+        arch: ${{ fromJson(needs.prepare.outputs.architectures) }}
 
     steps:
       - name: Checkout code
