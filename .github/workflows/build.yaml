@@ -61,7 +61,7 @@ jobs:
 
   prepare:
     runs-on: ubuntu-latest
-    needs: build-artifacts
+    needs: build-images
     outputs:
       architectures: ${{ steps.architectures.outputs.architectures }}
     steps:
