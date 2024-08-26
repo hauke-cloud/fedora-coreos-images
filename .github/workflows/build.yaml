@@ -60,7 +60,7 @@ jobs:
           key: builds-${{ github.sha }}
 
   prepare:
-    runs-on: ubuntu-latest
+    runs-on: metal-cosa
     needs: build-images
     outputs:
       architectures: ${{ steps.architectures.outputs.architectures }}
@@ -89,7 +89,7 @@ jobs:
 
   build:
     needs: prepare
-    runs-on: ubuntu-latest
+    runs-on: metal-cosa
 
     strategy:
       matrix:
