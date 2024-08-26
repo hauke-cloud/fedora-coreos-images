@@ -53,11 +53,11 @@ jobs:
       - name: List files
         run: ls -R builds/latest/x86_64/
 
-      - name: Upload builds directory as artifact
-        uses: actions/upload-artifact@v3
+      - name: Cache builds directory
+        uses: actions/cache@v3
         with:
-          name: builds-output
           path: builds
+          key: builds-${{ github.sha }}
 
   prepare:
     runs-on: ubuntu-latest
@@ -65,10 +65,13 @@ jobs:
     outputs:
       architectures: ${{ steps.architectures.outputs.architectures }}
     steps:
-      - name: Download builds artifact
-        uses: actions/download-artifact@v3
+      - name: Restore builds cache
+        uses: actions/cache@v3
         with:
-          name: builds-output
+          path: builds
+          key: builds-${{ github.sha }}
+          restore-keys: |
+            builds-
 
       - name: Execute rename-build-files.sh
         working-directory: builds
@@ -96,10 +99,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Download builds artifact
-        uses: actions/download-artifact@v3
+      - name: Restore builds cache
+        uses: actions/cache@v3
         with:
-          name: builds-output
+          path: builds
+          key: builds-${{ github.sha }}
+          restore-keys: |
+            builds-
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
