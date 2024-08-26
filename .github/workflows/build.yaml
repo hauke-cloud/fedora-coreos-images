@@ -11,7 +11,7 @@ on:
     types: [trigger-workflow]
 
 jobs:
-  build-images:
+  build-coreos:
     runs-on: metal-cosa
 
     steps:
@@ -61,7 +61,7 @@ jobs:
 
   prepare:
     runs-on: metal-cosa
-    needs: build-images
+    needs: build-coreos
     outputs:
       architectures: ${{ steps.architectures.outputs.architectures }}
     steps:
@@ -89,13 +89,13 @@ jobs:
           echo "Found architectures: $ARCHITECTURES"
           echo "architectures=$ARCHITECTURES" >> $GITHUB_OUTPUT
 
-  build:
+  build-images:
     needs: prepare
     runs-on: metal-cosa
 
     strategy:
       matrix:
-        arch: ${{ needs.prepare.outputs.architectures }}
+        arch: ${{ fromJson(needs.prepare.outputs.architectures) }}
 
     steps:
       - name: Checkout code
