@@ -87,7 +87,8 @@ jobs:
         run: |
           ARCHITECTURES=$(ls builds/output)
           echo "Found architectures: $ARCHITECTURES"
-          echo "architectures=$ARCHITECTURES" >> $GITHUB_OUTPUT
+          ARCHITECTURES_ARRAY=$(echo $ARCHITECTURES | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "architectures=$ARCHITECTURES_ARRAY" >> $GITHUB_OUTPUT
 
   build-images:
     needs: prepare
