@@ -13,6 +13,8 @@ on:
 jobs:
   build-coreos:
     runs-on: metal-cosa
+    outputs:
+      architectures: ${{ steps.architectures.outputs.architectures }}
 
     steps:
       - uses: webfactory/ssh-agent@v0.9.0
@@ -51,43 +53,13 @@ jobs:
           cosa buildextend-live
 
       - name: List files
-        run: ls -R builds/latest/x86_64/
-
-      - name: Cache builds directory
-        uses: actions/cache@v3
-        with:
-          path: builds
-          key: builds-${{ github.sha }}
-
-  prepare:
-    runs-on: metal-cosa
-    needs: build-coreos
-    outputs:
-      architectures: ${{ steps.architectures.outputs.architectures }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Restore builds cache
-        uses: actions/cache@v3
-        with:
-          path: builds
-          key: builds-${{ github.sha }}
-          restore-keys: |
-            builds-
+        run: ls -R builds
 
       - name: Execute rename-build-files.sh
         working-directory: builds
         run: |
           chmod +x ../scripts/rename-build-files.sh
           ../scripts/rename-build-files.sh
-          ls -R output
-
-      - name: Update cache
-        uses: actions/cache@v3
-        with:
-          path: builds
-          key: builds-${{ github.sha }}
 
       - name: List architecture directories
         id: architectures
@@ -97,13 +69,19 @@ jobs:
           ARCHITECTURES_ARRAY=$(echo $ARCHITECTURES | jq -R -s -c 'split("\n") | map(select(. != ""))')
           echo "architectures=$ARCHITECTURES_ARRAY" >> $GITHUB_OUTPUT
 
+      - name: Cache builds directory
+        uses: actions/cache@v3
+        with:
+          path: builds
+          key: builds-${{ github.sha }}
+
   build-images:
-    needs: prepare
+    needs: build-coreos
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        arch: ${{ fromJson(needs.prepare.outputs.architectures) }}
+        arch: ${{ fromJson(needs.build-coreos.outputs.architectures) }}
 
     steps:
       - name: Checkout code

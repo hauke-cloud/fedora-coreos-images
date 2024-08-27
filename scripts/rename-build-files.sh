@@ -59,3 +59,7 @@ for file in $(find ${BUILD_DIRECTORY} -type f); do
     mv ${file} ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}
   fi
 done
+
+# Clean up old build directory
+echo "Removing old build directory ${BUILD_DIRECTORY}"
+rm -rf "${BUILD_DIRECTORY}"
