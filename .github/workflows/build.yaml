@@ -92,7 +92,7 @@ jobs:
 
   build-images:
     needs: prepare
-    runs-on: metal-cosa
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
