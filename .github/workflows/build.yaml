@@ -81,7 +81,7 @@ jobs:
         run: |
           chmod +x ../scripts/rename-build-files.sh
           ../scripts/rename-build-files.sh
-          ls -R builds/output
+          ls -R output
 
       - name: List architecture directories
         id: architectures
