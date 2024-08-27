@@ -6,7 +6,14 @@
 
 # Fedora CoreOS Images
 
-<img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" align="right" alt="hauke.cloud logo" width="109" height="123">
+<div style="text-align: right;">
+    <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" align="right" alt="hauke.cloud logo" width="109" height="123">
+    <div>
+        :house: <a href="https://hauke.cloud" target="_blank">hauke.cloud</a>
+        :hammer_and_wrench: <a href="https://github.com/hauke-cloud" target="_blank">Github</a>
+    </div>
+</div>
+
 
 This repository and its workflows are applying a central template on every repository within the hauke.cloud organisation.
 
