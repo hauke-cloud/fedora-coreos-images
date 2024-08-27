@@ -126,7 +126,8 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:${{ matrix.arch }}-latest
           platforms: linux/${{ matrix.arch }}
           build-args: |
-            BUILD_DIR=builds/output/${{ matrix.arch }}
+            BUILD_DIR=builds/outputs
+            ARCH=${{ matrix.arch }}
 
       - name: Upload ISO file for ${{ matrix.arch }}
         uses: actions/upload-artifact@v3
