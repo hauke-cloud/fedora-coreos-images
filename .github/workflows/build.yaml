@@ -83,6 +83,12 @@ jobs:
           ../scripts/rename-build-files.sh
           ls -R output
 
+      - name: Update cache
+        uses: actions/cache@v3
+        with:
+          path: builds
+          key: builds-${{ github.sha }}
+
       - name: List architecture directories
         id: architectures
         run: |
