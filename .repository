@@ -1,0 +1,16 @@
+---
+title: Fedora CoreOS Images
+description: |
+  This repository and its workflows are applying a central template on every repository within the hauke.cloud organisation.
+
+  We are trying to achive following goals with this template:
+  - Consistent README.md structure
+  - Reduced maintenance effort
+  - Automated repository management
+  - Increase quality and usability of repositories
+logo: "resources/img/logo.png"
+docker_image_registry: "ghrc.io"
+docker_image: "hauke-cloud/example"
+docker_image_version: "latest"
+helm_repository: "https://hauke-cloud.github.io/helm-charts"
+helm_chart: "example"
