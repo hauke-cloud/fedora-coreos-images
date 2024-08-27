@@ -54,8 +54,8 @@ for file in $(find ${BUILD_DIRECTORY} -type f); do
   fi
 
   if [[ "${FILE_NAME}" =~ fedora-coreos- ]]; then
-    echo "Copying ${FILE_NAME} to ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${FILE_NAME}"
     NEW_FILE_NAME=$(echo ${FILE_NAME} | sed -E "s/fedora-coreos-${BUILD_DIRECTORY}/latest/g")
+    echo "Copying ${FILE_NAME} to ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}"
     mv ${file} ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}
   fi
 done
