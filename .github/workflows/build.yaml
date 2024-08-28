@@ -139,7 +139,7 @@ jobs:
         with:
           file: deploy/container/Dockerfile
           context: .
-          push: github.event_name == 'push' || github.event_name == 'repository_dispatch'
+          push: ${{ github.event_name == 'push' || github.event_name == 'repository_dispatch' }}
           tags: ghcr.io/${{ github.repository }}:${{ needs.prepare.outputs.docker_tag }}
           platforms: linux/${{ matrix.arch }}
           build-args: |
