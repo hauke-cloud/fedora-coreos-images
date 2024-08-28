@@ -7,18 +7,20 @@
 # Fedora CoreOS Images
 
 <div style="float: right;">
-  <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" alt="hauke.cloud logo" width="109" height="123">
-  <div style="margin-top: 10px;">
-    <a href="https://hauke.cloud" target="_blank">
-      <img src="https://img.shields.io/badge/home-hauke.cloud-brightgreen" alt="hauke.cloud" />
-    </a>
-    <a href="https://github.com/hauke-cloud" target="_blank">
-      <img src="https://img.shields.io/badge/github-hauke.cloud-blue" alt="hauke.cloud Github Organisation" style="display: block; margin-top: 5px;"/>
-    </a>
+  <div>
+    <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" alt="hauke.cloud logo" width="109" height="123">
+    <div style="margin-top: 10px;">
+      <a href="https://hauke.cloud" target="_blank">
+        <img src="https://img.shields.io/badge/home-hauke.cloud-brightgreen" alt="hauke.cloud" />
+      </a>
+      <a href="https://github.com/hauke-cloud" target="_blank">
+        <img src="https://img.shields.io/badge/github-hauke.cloud-blue" alt="hauke.cloud Github Organisation" style="display: block; margin-top: 5px;"/>
+      </a>
+    </div>
   </div>
 </div>
 
-<p align="left">
+<p>
 This repository and its workflows are applying a central template on every repository within the hauke.cloud organisation.
 
 We are trying to achive following goals with this template:
