@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main
+      - dev
+      - features/**
   pull_request:
     branches:
       - main
+      - dev
+      - features/**
   repository_dispatch:
     types: [trigger-workflow]
 
@@ -75,8 +79,33 @@ jobs:
           path: builds
           key: builds-${{ github.sha }}
 
+  prepare:
+    runs-on: ubuntu-latest
+
+    outputs:
+      docker_tag: ${{ steps.set-docker-tag.outputs.docker_tag }}
+
+    steps:
+      - name: Determine Docker Tag
+        id: set-docker-tag
+        run: |
+          if [[ "${{ github.event_name }}" == "repository_dispatch" && "${{ github.event.action }}" == "trigger-workflow" && "${{ github.event.client_payload.tag_name }}" != "" ]]; then
+            TAG="${{ github.event.client_payload.tag_name }}"
+          elif [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+            TAG="latest"
+          elif [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
+            TAG="dev"
+          else
+            BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | tr '/' '-')
+            TAG="feature-${BRANCH_NAME}"
+          fi
+          echo "docker_tag=${TAG}" >> $GITHUB_OUTPUT
+
   build-images:
-    needs: build-coreos
+    needs:
+      - build-coreos
+      - prepare
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -110,8 +139,8 @@ jobs:
         with:
           file: deploy/container/Dockerfile
           context: .
-          push: true
-          tags: ghcr.io/${{ github.repository }}:${{ matrix.arch }}-latest
+          push: github.event_name == 'push' || github.event_name == 'repository_dispatch'
+          tags: ghcr.io/${{ github.repository }}:${{ needs.prepare.outputs.docker_tag }}
           platforms: linux/${{ matrix.arch }}
           build-args: |
             BUILD_DIR=builds/output
