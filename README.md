@@ -6,7 +6,7 @@
 
 # Fedora CoreOS Images
 
-<div align="right">
+<div align="right" style="text-align: right">
   <div style="text-align: center;">
     <div>
         <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" alt="hauke.cloud logo" width="109" height="123">
