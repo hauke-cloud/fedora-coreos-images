@@ -8,7 +8,7 @@
 
 <div style="text-align: right;">
     <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" align="right" alt="hauke.cloud logo" width="109" height="123">
-    <div>
+    <div style="text-align;">
         :house: <a href="https://hauke.cloud" target="_blank">hauke.cloud</a>
         :hammer_and_wrench: <a href="https://github.com/hauke-cloud" target="_blank">Github</a>
     </div>
