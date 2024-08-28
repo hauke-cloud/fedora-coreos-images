@@ -119,7 +119,7 @@ jobs:
           path: builds
           key: builds-${{ github.sha }}
 
-  build-images:
+  build-container-images:
     needs:
       - build-coreos
       - prepare
@@ -174,12 +174,6 @@ jobs:
             org.opencontainers.image.vendor="hauke.cloud"
             org.opencontainers.image.source="https://github.com/hauke-cloud/fedora-coreos-images"
             org.opencontainers.image.licenses="GPL v.3.0"
-
-      - name: Upload ISO file for ${{ matrix.arch }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: latest-live-${{ matrix.arch }}.iso
-          path: builds/output/${{ matrix.arch }}/latest-live.${{ matrix.arch }}.iso
 
   create-release:
     needs:
