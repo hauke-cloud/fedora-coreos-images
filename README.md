@@ -28,11 +28,8 @@ We are trying to achive following goals with this template:
 - [Contributing](#contributing)
 - [Contact](#contact)
 
-## 🚀 Getting started
 
-## :wrench: Configuration
 
-## :airplane: Usage
 
 ## 📄 License
 
