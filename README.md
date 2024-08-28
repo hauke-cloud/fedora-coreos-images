@@ -12,12 +12,12 @@
   </div>
   <div style="text-align: right;">
     <a href="https://hauke.cloud" target="_blank">
-      <img src="https://img.shields.io/badge/home-hauke.cloud-brightgreen" alt="hauke.cloud" />
+      <img src="https://img.shields.io/badge/home-hauke.cloud-brightgreen" align="right" alt="hauke.cloud" />
     </a>
   </div>
   <div>
     <a href="https://github.com/hauke-cloud">
-      <img src="https://img.shields.io/badge/github-hauke.cloud-blue" alt="hauke.cloud Github Organisation" />
+      <img src="https://img.shields.io/badge/github-hauke.cloud-blue" align="right" alt="hauke.cloud Github Organisation" />
     </a>
   </div>
 </div>
