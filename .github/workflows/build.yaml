@@ -20,6 +20,8 @@ jobs:
 
     outputs:
       docker_tag: ${{ steps.set-docker-tag.outputs.docker_tag }}
+      release_name: ${{ steps.set-release.outputs.release_name }}
+      release_dev: ${{ steps.set-release.outputs.release_tag }}
 
     steps:
       - name: Determine Docker Tag
@@ -36,6 +38,21 @@ jobs:
             TAG="feature-${BRANCH_NAME}"
           fi
           echo "docker_tag=${TAG}" >> $GITHUB_OUTPUT
+
+      - name: Determine Release Name And Tag
+        id: set-release
+        run: |
+          if [[ $GITHUB_REF == refs/heads/main ]]; then
+            echo "release_name=Latest" >> $GITHUB_ENV
+            echo "relase_tag=latest" >> $GITHUB_ENV
+          elif [[ $GITHUB_REF == refs/heads/dev ]]; then
+            echo "release_name=dev" >> $GITHUB_ENV
+            echo "release_tag=dev" >> $GITHUB_ENV
+          elif [[ $GITHUB_REF == refs/tags/* ]]; then
+            tag_name=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
+            echo "release_name=release $tag_name" >> $GITHUB_ENV
+            echo "release_tag=$tag_name" >> $GITHUB_ENV
+          fi
 
   build-coreos:
     needs: prepare
@@ -163,3 +180,64 @@ jobs:
         with:
           name: latest-live-${{ matrix.arch }}.iso
           path: builds/output/${{ matrix.arch }}/latest-live.${{ matrix.arch }}.iso
+
+  create-release:
+    needs:
+      - build-coreos
+      - prepare
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      release_upload_url: ${{ steps.create_release.outputs.upload_url }}
+
+    steps:
+      - name: Create or Update Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ needs.prepare.outputs.release_tag }}
+          release_name: ${{ needs.prepare.outputs.release_name }}
+          draft: false
+          prerelease: ${{ needs.prepare.outputs.release_tag == 'dev' }}
+          overwrite: true
+          body: |
+            This release includes the following Docker images:
+
+            - `docker pull ghcr.io/${{ github.repository }}:${{ needs.prepare.outputs.docker_tag }`
+
+  upload-artifact-to-release:
+    needs:
+      - prepare
+      - build-coreos
+      - create-release
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        arch: ${{ fromJson(needs.build-coreos.outputs.architectures) }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Restore builds cache
+        uses: actions/cache@v3
+        with:
+          path: builds
+          key: builds-${{ github.sha }}
+          restore-keys: |
+            builds-
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.release_upload_url }}
+          asset_path: builds/output/${{ matrix.arch }}/latest-live.${{ matrix.arch }}.iso
+          asset_name: latest-live-${{ matrix.arch }}.iso
+          asset_content_type: application/x-iso9660-image
