@@ -206,7 +206,7 @@ jobs:
           body: |
             This release includes the following Docker images:
 
-            - `docker pull ghcr.io/${{ github.repository }}:${{ needs.prepare.outputs.docker_tag }`
+            - `docker pull ghcr.io/${{ github.repository }}:${{ needs.prepare.outputs.docker_tag }}`
 
   upload-artifact-to-release:
     needs:
