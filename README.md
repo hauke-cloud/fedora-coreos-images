@@ -6,7 +6,7 @@
 
 # Fedora CoreOS Images
 
-<div style="display: flex; justify-content: flex-end;">
+<div align="right" style="display: flex; justify-content: flex-end;">
   <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" alt="hauke.cloud logo" width="109" height="123">
   <div style="display: flex; flex-direction: column; align-items: flex-end; margin-top: 10px;">
     <a href="https://hauke.cloud" target="_blank">
