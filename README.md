@@ -6,7 +6,7 @@
 
 # Fedora CoreOS Images
 
-<div style="float: right;">
+<div style="float: right; clear: both;">
   <div align="right">
     <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" alt="hauke.cloud logo" width="109" height="123">
     <div style="margin-top: 10px;">
@@ -22,7 +22,6 @@
   </div>
 </div>
 
-<p>
 This repository and its workflows are applying a central template on every repository within the hauke.cloud organisation.
 
 We are trying to achive following goals with this template:
@@ -31,7 +30,6 @@ We are trying to achive following goals with this template:
 - Automated repository management
 - Increase quality and usability of repositories
 
-</p>
 
 ## Table of Contents
 
