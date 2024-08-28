@@ -6,16 +6,14 @@
 
 # Fedora CoreOS Images
 
-<div align="right" style="display: flex; justify-content: flex-end;">
+<div style="float: right;">
   <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" alt="hauke.cloud logo" width="109" height="123">
-  <div style="display: flex; flex-direction: column; align-items: flex-end; margin-top: 10px;">
+  <div style="margin-top: 10px;">
     <a href="https://hauke.cloud" target="_blank">
       <img src="https://img.shields.io/badge/home-hauke.cloud-brightgreen" alt="hauke.cloud" />
     </a>
-  </div>
-  <div style="display: flex; flex-direction: column; align-items: flex-end; margin-top: 10px;">
     <a href="https://github.com/hauke-cloud" target="_blank">
-      <img src="https://img.shields.io/badge/github-hauke.cloud-blue" alt="hauke.cloud Github Organisation" />
+      <img src="https://img.shields.io/badge/github-hauke.cloud-blue" alt="hauke.cloud Github Organisation" style="display: block; margin-top: 5px;"/>
     </a>
   </div>
 </div>
