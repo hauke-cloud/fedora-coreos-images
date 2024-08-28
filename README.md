@@ -6,20 +6,14 @@
 
 # Fedora CoreOS Images
 
-<div style="text-align: right;">
-  <div style="text-align: right;">
-      <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" align="right" alt="hauke.cloud logo" width="109" height="123">
-  </div>
-  <div style="text-align: right;">
-    <a href="https://hauke.cloud" target="_blank">
-      <img src="https://img.shields.io/badge/home-hauke.cloud-brightgreen" align="right" alt="hauke.cloud" />
-    </a>
-  </div>
-  <div>
-    <a href="https://github.com/hauke-cloud">
-      <img src="https://img.shields.io/badge/github-hauke.cloud-blue" align="right" alt="hauke.cloud Github Organisation" />
-    </a>
-  </div>
+<div style="text-align: right; vertical-align: middle;">
+  <img src="https://raw.githubusercontent.com/hauke-cloud/.github/main/resources/img/organisation-logo-small.png" align="right" alt="hauke.cloud logo" width="109" height="123">
+  <a href="https://hauke.cloud" target="_blank">
+    <img src="https://img.shields.io/badge/home-hauke.cloud-brightgreen" align="right" alt="hauke.cloud" />
+  </a>
+  <a href="https://github.com/hauke-cloud">
+    <img src="https://img.shields.io/badge/github-hauke.cloud-blue" align="right" alt="hauke.cloud Github Organisation" />
+  </a>
 </div>
 
 This repository and its workflows are applying a central template on every repository within the hauke.cloud organisation.
