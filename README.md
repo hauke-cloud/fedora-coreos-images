@@ -12,6 +12,8 @@
     <a href="https://hauke.cloud" target="_blank">
       <img src="https://img.shields.io/badge/home-hauke.cloud-brightgreen" alt="hauke.cloud" />
     </a>
+  </div>
+  <div style="display: flex; flex-direction: column; align-items: flex-end; margin-top: 10px;">
     <a href="https://github.com/hauke-cloud" target="_blank">
       <img src="https://img.shields.io/badge/github-hauke.cloud-blue" alt="hauke.cloud Github Organisation" />
     </a>
