@@ -42,7 +42,7 @@ for file in $(find ${BUILD_DIRECTORY} -type f); do
   ARCHITECTURE=$(echo ${FILE_DIRECTORY} | cut -d/ -f 2)
 
   # Skip unnecessary files
-  if [[ "${FILE_EXTENSION}" =~ ^(raw|json|ociarchive)$ ]]; then
+  if [[ "${FILE_EXTENSION}" =~ ^(json|ociarchive)$ ]]; then
     echo "Skipping unnecessary file ${FILE_NAME}"
     continue
   fi
