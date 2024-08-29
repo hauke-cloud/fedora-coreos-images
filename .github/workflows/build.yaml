@@ -188,15 +188,17 @@ jobs:
     steps:
       - name: Create or Update Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ needs.prepare.outputs.release_tag }}
-          release_name: ${{ needs.prepare.outputs.release_name }}
+          name: ${{ needs.prepare.outputs.release_name }}
           draft: false
+          removeArtifacts: true
+          allowUpdates: true
+          makeLatest: ${{ needs.prepare.outputs.release_tag == 'main' }}
           prerelease: ${{ needs.prepare.outputs.release_tag == 'dev' }}
-          overwrite: true
           body: |
             This release includes the following Docker images:
 
