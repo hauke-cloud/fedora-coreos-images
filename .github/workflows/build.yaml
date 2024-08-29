@@ -44,7 +44,7 @@ jobs:
         run: |
           if [[ $GITHUB_REF == refs/heads/main ]]; then
             echo "release_name=Latest" >> $GITHUB_ENV
-            echo "relase_tag=latest" >> $GITHUB_ENV
+            echo "release_tag=latest" >> $GITHUB_ENV
           elif [[ $GITHUB_REF == refs/heads/dev ]]; then
             echo "release_name=dev" >> $GITHUB_ENV
             echo "release_tag=dev" >> $GITHUB_ENV
