@@ -43,15 +43,15 @@ jobs:
         id: set-release
         run: |
           if [[ $GITHUB_REF == refs/heads/main ]]; then
-            echo "release_name=Latest" >> $GITHUB_ENV
-            echo "release_tag=latest" >> $GITHUB_ENV
+            echo "release_name=latest" >> $GITHUB_OUTPUT
+            echo "release_tag=latest" >> $GITHUB_OUTPUT
           elif [[ $GITHUB_REF == refs/heads/dev ]]; then
-            echo "release_name=dev" >> $GITHUB_ENV
-            echo "release_tag=dev" >> $GITHUB_ENV
+            echo "release_name=dev" >> $GITHUB_OUTPUT
+            echo "release_tag=dev" >> $GITHUB_OUTPUT
           elif [[ $GITHUB_REF == refs/tags/* ]]; then
             tag_name=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
-            echo "release_name=release $tag_name" >> $GITHUB_ENV
-            echo "release_tag=$tag_name" >> $GITHUB_ENV
+            echo "release_name=release $tag_name" >> $GITHUB_OUTPUT
+            echo "release_tag=$tag_name" >> $GITHUB_OUTPUT
           fi
 
   build-coreos:
