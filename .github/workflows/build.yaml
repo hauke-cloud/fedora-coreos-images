@@ -21,7 +21,7 @@ jobs:
     outputs:
       docker_tag: ${{ steps.set-docker-tag.outputs.docker_tag }}
       release_name: ${{ steps.set-release.outputs.release_name }}
-      release_dev: ${{ steps.set-release.outputs.release_tag }}
+      release_tag: ${{ steps.set-release.outputs.release_tag }}
 
     steps:
       - name: Determine Docker Tag
