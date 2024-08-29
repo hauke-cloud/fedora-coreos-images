@@ -20,8 +20,6 @@ We are trying to achive following goals with this template:
 
 ## Table of Contents
 
-- [Getting started](#-getting-started)
-- [Usage](#-usage)
 - [License](#license)
 - [Contributing](#contributing)
 - [Contact](#contact)
