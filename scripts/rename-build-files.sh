@@ -29,11 +29,11 @@ fi
 
 # Process files
 for file in $(find ${BUILD_DIRECTORY} -type f); do
-  # Get file name without extension
-  FILE_NAME=$(basename "${file}" .${FILE_EXTENSION})
-
   # Get file extension
   FILE_EXTENSION="${file##*.}"
+
+  # Get file name without extension
+  FILE_NAME=$(basename "${file}" .${FILE_EXTENSION})
 
   # Get file directory
   FILE_DIRECTORY=$(dirname "${file}")
@@ -55,7 +55,7 @@ for file in $(find ${BUILD_DIRECTORY} -type f); do
 
   if [[ "${FILE_NAME}" =~ fedora-coreos- ]]; then
     NEW_FILE_NAME=$(echo ${FILE_NAME} | sed -E "s/fedora-coreos-${BUILD_DIRECTORY}/latest/g")
-    echo "Copying ${FILE_NAME} to ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}"
+    echo "Copying ${file} to ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}"
     mv ${file} ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}
   fi
 done
