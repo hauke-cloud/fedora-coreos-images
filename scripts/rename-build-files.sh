@@ -33,7 +33,7 @@ for file in $(find ${BUILD_DIRECTORY} -type f); do
   FILE_EXTENSION="${file##*.}"
 
   # Get file name without extension
-  FILE_NAME=$(basename "${file}" .${FILE_EXTENSION})
+  FILE_NAME=$(basename "${file}")
 
   # Get file directory
   FILE_DIRECTORY=$(dirname "${file}")
