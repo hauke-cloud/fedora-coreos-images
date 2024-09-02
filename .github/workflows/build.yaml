@@ -105,6 +105,24 @@ jobs:
           chmod +x ../scripts/rename-build-files.sh
           ../scripts/rename-build-files.sh
 
+      - name: Compress raw/iso files
+        working-directory: builds
+        run: |
+          cwd="$(pwd)"
+          for archive in **/*.{raw,iso}; do
+            echo "Switching to $(dirname ${archive})"
+            cd "$(dirname ${archive})"
+
+            echo "Compress $(basename ${archive}) to $(basename ${archive}).xz"
+            xz -z1 "$(basename ${archive})"
+
+            echo "Generating sha256sum for $(basename ${archive})"
+            sha256sum "$(basename ${archive}).xz" > "$(basename ${archive}).sha256"
+
+            echo "Switching back to ${cwd}"
+            cd "${cwd}"
+          done
+
       - name: List architecture directories
         id: architectures
         run: |
@@ -234,8 +252,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.release_upload_url }}
-          asset_path: builds/output/${{ matrix.arch }}/latest-live.${{ matrix.arch }}.iso
-          asset_name: latest-live-${{ matrix.arch }}.iso
+          asset_path: builds/output/${{ matrix.arch }}/latest-live.${{ matrix.arch }}.iso.xz
+          asset_name: latest-live-${{ matrix.arch }}.iso.xz
+          asset_content_type: application/x-iso9660-image
+
+      - name: Upload sha256sum of ISO to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.release_upload_url }}
+          asset_path: builds/output/${{ matrix.arch }}/latest-live.${{ matrix.arch }}.iso.xz.sha256
+          asset_name: latest-live-${{ matrix.arch }}.iso.xz.sha256
           asset_content_type: application/x-iso9660-image
 
       - name: Upload metal image to release
@@ -244,8 +272,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.release_upload_url }}
-          asset_path: builds/output/${{ matrix.arch }}/latest-metal.${{ matrix.arch }}.raw
-          asset_name: latest-metal-${{ matrix.arch }}.raw
+          asset_path: builds/output/${{ matrix.arch }}/latest-metal.${{ matrix.arch }}.raw.xz
+          asset_name: latest-metal-${{ matrix.arch }}.raw.xz
+          asset_content_type: application/octet-stream
+
+      - name: Upload sha256sum of metal image to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.release_upload_url }}
+          asset_path: builds/output/${{ matrix.arch }}/latest-metal.${{ matrix.arch }}.raw.xz.sha256
+          asset_name: latest-metal-${{ matrix.arch }}.raw.xz.sha256
           asset_content_type: application/octet-stream
 
       - name: Upload metal4k image to release
@@ -254,6 +292,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.release_upload_url }}
-          asset_path: builds/output/${{ matrix.arch }}/latest-metal4k.${{ matrix.arch }}.raw
-          asset_name: latest-metal4k-${{ matrix.arch }}.raw
+          asset_path: builds/output/${{ matrix.arch }}/latest-metal4k.${{ matrix.arch }}.raw.xz
+          asset_name: latest-metal4k-${{ matrix.arch }}.raw.xz
+          asset_content_type: application/octet-stream
+
+      - name: Upload sha256sum of metal4k image to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.release_upload_url }}
+          asset_path: builds/output/${{ matrix.arch }}/latest-metal4k.${{ matrix.arch }}.raw.xz.sha256
+          asset_name: latest-metal4k-${{ matrix.arch }}.raw.xz.sha256
           asset_content_type: application/octet-stream
