@@ -107,6 +107,7 @@ jobs:
 
       - name: Compress raw/iso files
         working-directory: builds
+        shell: bash
         run: |
           cwd="$(pwd)"
           for archive in **/*.{raw,iso}; do
