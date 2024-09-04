@@ -86,11 +86,11 @@ jobs:
 
       - name: Build metal
         run: |
-          cosa build metal
+          cosa buildextend-metal
 
       - name: Build metal4k
         run: |
-          cosa build metal4k
+          cosa buildextend-metal4k
 
       - name: Build live image with Fedora CoreOS assembler
         run: |
