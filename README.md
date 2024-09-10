@@ -24,7 +24,7 @@ Here you will find:
 
 
 ## 🚀 Getting started
-To get started, you need to clone the repository containing this `README.md` file. Follow the steps below:
+To get started, you need to clone the repository. Follow the steps below:
 
 ### 1. Clone the repository
 
