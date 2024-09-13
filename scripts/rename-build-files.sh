@@ -55,12 +55,24 @@ for file in $(find ${BUILD_DIRECTORY} -type f); do
 
   if [[ "${FILE_NAME}" =~ fedora-coreos- ]]; then
     NO_BUILD_DIRECTORY=$(echo ${FILE_NAME} | sed -E "s/fedora-coreos-${BUILD_DIRECTORY}-//g")
-    NEW_FILE_BASE=$(echo ${NO_BUILD_DIRECTORY} | cut -d"." -f 1 | sed "s/-${ARCHITECTURE}//g")
-    NEW_FILE_EXTENSION=""
-    if echo "${NO_BUILD_DIRECTORY}" | grep '.' >/dev/null 2>&1; then
-      NEW_FILE_EXTENSION=".$(echo ${NO_BUILD_DIRECTORY} | cut -d'.' -f 2)"
+    NO_ARCHITECTURE=$(echo ${NO_BUILD_DIRECTORY} | sed -E "s/-${ARCHITECTURE}//g")
+
+    BASE="${NO_ARCHITECTURE%%.*}"
+    REST="${NO_ARCHITECTURE#*.}"
+
+    if [[ "$REST" == "$NO_ARCHITECTURE" ]]; then
+      EXTENSION=""
+    else
+      EXTENSION="${NO_ARCHITECTURE##*.}"
+
+      if [[ "$BASE" == "$REST" ]]; then
+        EXTENSION=""
+      else
+        BASE="${NO_ARCHITECTURE%.*}"
+      fi
     fi
-    NEW_FILE_NAME="${NEW_FILE_BASE}${NEW_FILE_EXTENSION}"
+
+    NEW_FILE_NAME="${BASE}.${EXTENSION}"
     echo "Copying ${file} to ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}"
     mv ${file} ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}
   fi
