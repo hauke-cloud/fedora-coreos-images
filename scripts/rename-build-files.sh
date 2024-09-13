@@ -55,7 +55,7 @@ for file in $(find ${BUILD_DIRECTORY} -type f); do
 
   if [[ "${FILE_NAME}" =~ fedora-coreos- ]]; then
     NEW_FILE_BASE=$(echo ${FILE_NAME} | sed -E "s/fedora-coreos-${BUILD_DIRECTORY}-//g" | cut -d"." -f 1)
-    NEW_FILE_NAME="${NEW_FILE_BASE}.${FILE_EXTENSION}"
+    NEW_FILE_NAME="${NEW_FILE_BASE}.${NEW_FILE_BASE##*.}"
     echo "Copying ${file} to ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}"
     mv ${file} ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}
   fi
