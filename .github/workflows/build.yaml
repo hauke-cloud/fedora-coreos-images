@@ -92,6 +92,10 @@ jobs:
         run: |
           cosa buildextend-metal4k
 
+      - name: Build qemu
+        run: |
+          cosa buildextend-qemu
+
       - name: Build live image with Fedora CoreOS assembler
         run: |
           cosa buildextend-live
@@ -111,7 +115,7 @@ jobs:
         run: |
           shopt -s globstar
           cwd="$(pwd)"
-          for archive in **/*.{raw,iso}; do
+          for archive in **/*.{raw,iso,qcow2}; do
             echo "Switching to $(dirname ${archive})"
             cd "$(dirname ${archive})"
 
@@ -306,4 +310,24 @@ jobs:
           upload_url: ${{ needs.create-release.outputs.release_upload_url }}
           asset_path: builds/output/${{ matrix.arch }}/latest-metal4k.${{ matrix.arch }}.raw.xz.sha256
           asset_name: latest-metal4k-${{ matrix.arch }}.raw.xz.sha256
+          asset_content_type: application/octet-stream
+
+      - name: Upload qemu image to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.release_upload_url }}
+          asset_path: builds/output/${{ matrix.arch }}/latest-qemu.${{ matrix.arch }}.qcow2.xz
+          asset_name: latest-qemu-${{ matrix.arch }}.qcow2.xz
+          asset_content_type: application/octet-stream
+
+      - name: Upload sha256sum of qemu image to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.release_upload_url }}
+          asset_path: builds/output/${{ matrix.arch }}/latest-qemu.${{ matrix.arch }}.qcow2.xz.sha256
+          asset_name: latest-qemu-${{ matrix.arch }}.qcow2.xz.sha256
           asset_content_type: application/octet-stream
