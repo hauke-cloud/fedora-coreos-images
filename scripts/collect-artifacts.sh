@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo "Archtiecture: ${ARCHITECTURE}"
-
 OUTPUT_DIRECTORY="output"
 
 # Get first build directory
@@ -41,7 +39,7 @@ for file in $(find ${BUILD_DIRECTORY} -type f); do
   FILE_DIRECTORY=$(dirname "${file}")
 
   # Match filename against pattern
-  if [[ "${FILE_NAME}" =~ ^${BUILD_DIRECTORY}-(.+)[-\.]{1}${ARCHITECTURE}\.?(.*)$ ]]; then
+  if [[ "${FILE_NAME}" =~ ^fedora-coreos-${BUILD_DIRECTORY}-(.+)[-\.]{1}${ARCHITECTURE}\.?(.*)$ ]]; then
     ARTIFACT_NAME="${BASH_REMATCH[1]}"
     FILE_EXTENSION="${BASH_REMATCH[2]}"
 
