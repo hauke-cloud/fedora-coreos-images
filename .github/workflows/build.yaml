@@ -103,11 +103,11 @@ jobs:
       - name: List files
         run: ls -R builds
 
-      - name: Execute rename-build-files.sh
+      - name: Collect artifacts
         working-directory: builds
         run: |
-          chmod +x ../scripts/rename-build-files.sh
-          ../scripts/rename-build-files.sh
+          chmod +x ../scripts/collect-artifacts.sh
+          ../scripts/collect-artifacts.sh
 
       - name: Compress raw/iso files
         working-directory: builds

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Archtiecture: ${ARCHITECTURE}"
+
 OUTPUT_DIRECTORY="output"
 
 # Get first build directory
@@ -29,50 +31,37 @@ fi
 
 # Process files
 for file in $(find ${BUILD_DIRECTORY} -type f); do
-  # Get file extension
-  FILE_EXTENSION="${file##*.}"
-
   # Get file name without extension
   FILE_NAME=$(basename "${file}")
-
-  # Get file directory
-  FILE_DIRECTORY=$(dirname "${file}")
 
   # Get architecture
   ARCHITECTURE=$(echo ${FILE_DIRECTORY} | cut -d/ -f 2)
 
-  # Skip unnecessary files
-  if [[ "${FILE_EXTENSION}" =~ ^(json|ociarchive)$ ]]; then
-    echo "Skipping unnecessary file ${FILE_NAME}"
-    continue
-  fi
+  # Get file directory
+  FILE_DIRECTORY=$(dirname "${file}")
 
-  # Create architecture directory
-  if [[ ! -d "${OUTPUT_DIRECTORY}/${ARCHITECTURE}" ]]; then
-    echo "Creating architecture directory ${OUTPUT_DIRECTORY}/${ARCHITECTURE}"
-    mkdir -p ${OUTPUT_DIRECTORY}/${ARCHITECTURE}
-  fi
+  # Match filename against pattern
+  if [[ "${FILE_NAME}" =~ ^${BUILD_DIRECTORY}-(.+)[-\.]{1}${ARCHITECTURE}\.?(.*)$ ]]; then
+    ARTIFACT_NAME="${BASH_REMATCH[1]}"
+    FILE_EXTENSION="${BASH_REMATCH[2]}"
 
-  if [[ "${FILE_NAME}" =~ fedora-coreos- ]]; then
-    NO_BUILD_DIRECTORY=$(echo ${FILE_NAME} | sed -E "s/fedora-coreos-${BUILD_DIRECTORY}-//g")
-    NO_ARCHITECTURE=$(echo ${NO_BUILD_DIRECTORY} | sed -E "s/-${ARCHITECTURE}//g")
-
-    BASE="${NO_ARCHITECTURE%%.*}"
-    REST="${NO_ARCHITECTURE#*.}"
-
-    if [[ "$REST" == "$NO_ARCHITECTURE" ]]; then
-      EXTENSION=""
-    else
-      EXTENSION="${NO_ARCHITECTURE##*.}"
-
-      if [[ "$BASE" == "$REST" ]]; then
-        EXTENSION=""
-      else
-        BASE="${NO_ARCHITECTURE%.*}"
-      fi
+    # Skip unnecessary files
+    if [[ "${FILE_EXTENSION}" =~ ^(json|ociarchive)$ ]]; then
+      echo "Skipping unnecessary file ${FILE_NAME}"
+      continue
     fi
 
-    NEW_FILE_NAME="${BASE}.${EXTENSION}"
+    # Create architecture directory
+    if [[ ! -d "${OUTPUT_DIRECTORY}/${ARCHITECTURE}" ]]; then
+      echo "Creating architecture directory ${OUTPUT_DIRECTORY}/${ARCHITECTURE}"
+      mkdir -p ${OUTPUT_DIRECTORY}/${ARCHITECTURE}
+    fi
+
+    NEW_FILE_NAME="${ARTIFACT_NAME}"
+    if [[ ! -z "${FILE_EXTENSION}" ]]; then
+      NEW_FILE_NAME="${NEW_FILE_NAME}.${FILE_EXTENSION}"
+    fi
+
     echo "Copying ${file} to ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}"
     mv ${file} ${OUTPUT_DIRECTORY}/${ARCHITECTURE}/${NEW_FILE_NAME}
   fi
