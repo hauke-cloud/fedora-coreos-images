@@ -302,7 +302,7 @@ jobs:
       - name: Generate client-payload
         id: generate_payload
         run: |
-          payload='{"coreos_url": "$COREOS_URL"}'
+          payload='{"coreos_url": "'$COREOS_URL'}'
           echo "CLIENT_PAYLOAD=${payload}" >> $GITHUB_ENV
 
       - name: Trigger another workflow
