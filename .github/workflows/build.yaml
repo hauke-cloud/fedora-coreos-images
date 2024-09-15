@@ -302,12 +302,8 @@ jobs:
       - name: Generate client-payload
         id: generate_payload
         run: |
-          payload='{
-            "coreos_url": "$COREOS_URL"
-          }'
-          echo "client_payload=${payload}" >> $GITHUB_OUTPUT
-        env:
-          COREOS_URL: ${{ needs.upload-artifact-to-release['Upload metal.raw.xz x86_64'].outputs.download_url }}
+          payload='{"coreos_url": "$COREOS_URL"}'
+          echo "CLIENT_PAYLOAD=${payload}" >> $GITHUB_ENV
 
       - name: Trigger another workflow
         uses: peter-evans/repository-dispatch@v2
@@ -315,4 +311,4 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           repository: hauke-cloud/packer-fedora-coreos
           event-type: trigger-${{ needs.prepare.outputs.release_tag }}
-          client-payload: ${{ steps.generate_payload.outputs.client_payload }}
+          client-payload: ${{ env.CLIENT_PAYLOAD }}
