@@ -307,5 +307,6 @@ jobs:
           event-type: trigger-${{ needs.prepare.outputs.release_tag }}
           client-payload: |
             {
-              "coreos_url": "https://github.com/hauke-cloud/fedora-coreos-images/releases/download/${{ needs.prepare.outputs.release_tag == 'dev' && 'dev' || 'latest' }}/x86_64_metal.raw.xz"
+              "coreos_url": "https://github.com/hauke-cloud/fedora-coreos-images/releases/download/${{ needs.prepare.outputs.release_tag == 'dev' && 'dev' || 'latest' }}/x86_64_metal.raw.xz",
+              "snapshot_name": "fedora-coreos-${{ needs.prepare.outputs.release_tage }}"
             }
