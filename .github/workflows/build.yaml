@@ -22,7 +22,7 @@ jobs:
       docker_tag: ${{ steps.set-docker-tag.outputs.docker_tag }}
       release_name: ${{ steps.set-release.outputs.release_name }}
       release_tag: ${{ steps.set-release.outputs.release_tag }}
-      fedora-coreos-config-branch: ${{ steps.set-release.outputs.fedora-coreos-config-branch }}
+      fedora-coreos-config-branch: ${{ steps.set-config-branch.outputs.fedora-coreos-config-branch }}
 
     steps:
       - name: Determine Docker Tag
