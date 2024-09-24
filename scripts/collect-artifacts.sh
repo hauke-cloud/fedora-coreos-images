@@ -32,11 +32,11 @@ for file in $(find ${BUILD_DIRECTORY} -type f); do
   # Get file name without extension
   FILE_NAME=$(basename "${file}")
 
-  # Get architecture
-  ARCHITECTURE=$(echo ${FILE_DIRECTORY} | cut -d/ -f 2)
-
   # Get file directory
   FILE_DIRECTORY=$(dirname "${file}")
+
+  # Get architecture
+  ARCHITECTURE=$(echo ${FILE_DIRECTORY} | cut -d/ -f 2)
 
   # Match filename against pattern
   if [[ "${FILE_NAME}" =~ ^fedora-coreos-${BUILD_DIRECTORY}-(.+)[-\.]{1}${ARCHITECTURE}\.?(.*)$ ]]; then
